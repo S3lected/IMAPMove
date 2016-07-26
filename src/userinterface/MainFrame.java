@@ -128,6 +128,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
         mProgressBar = new javax.swing.JProgressBar();
         mLabelInfo = new javax.swing.JLabel();
         mComboBoxSeparator = new javax.swing.JComboBox<>();
+        jCheckBoxHeaderRow = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SelectedMailTransfer");
@@ -154,6 +155,14 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
 
         mComboBoxSeparator.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { ",", ";" }));
 
+        jCheckBoxHeaderRow.setSelected(true);
+        jCheckBoxHeaderRow.setText("Header Row");
+        jCheckBoxHeaderRow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxHeaderRowActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -163,16 +172,18 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(mProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(mLabelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(mLabelFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(mButtonChooseFile)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(mTextFieldFilePath, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
-                            .addComponent(mComboBoxSeparator, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(mLabelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                            .addComponent(mLabelFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(mButtonChooseFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(mTextFieldFilePath, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(mComboBoxSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jCheckBoxHeaderRow))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mButtonStart))
                     .addComponent(mLabelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -191,7 +202,10 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(mButtonChooseFile)
                             .addComponent(mTextFieldFilePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(mLabelFile)))
+                            .addComponent(mLabelFile))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBoxHeaderRow)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(mButtonStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,8 +226,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -222,13 +235,14 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
     private void mButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButtonStartActionPerformed
         String mSeparator = mComboBoxSeparator.getSelectedItem().toString();
         File mFile = mChooser.getSelectedFile();
-  
+        boolean mHeaderRow = jCheckBoxHeaderRow.isSelected();
+        
         if (mFile == null) {
             System.out.println("Please choose a file");
             return;
         }
         
-        ArrayList<MailAccountMap> mMailAccountList = SelectedFileReader.read(mFile, mSeparator);
+        ArrayList<MailAccountMap> mMailAccountList = SelectedFileReader.read(mFile, mSeparator, mHeaderRow);
 	System.out.println(mMailAccountList);
         
         mButtonStart.setEnabled(false);
@@ -252,6 +266,10 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
             mTextFieldFilePath.setText(mChooser.getSelectedFile().getAbsolutePath());
         }
     }//GEN-LAST:event_mButtonChooseFileActionPerformed
+
+    private void jCheckBoxHeaderRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxHeaderRowActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBoxHeaderRowActionPerformed
 
     /**
      * @param args the command line arguments
@@ -301,6 +319,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox jCheckBoxHeaderRow;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton mButtonChooseFile;
     private javax.swing.JButton mButtonStart;
