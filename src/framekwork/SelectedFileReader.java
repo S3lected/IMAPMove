@@ -14,7 +14,10 @@ public class SelectedFileReader {
 
         BufferedReader br = null;
         String line = "";
-        String cvsSplitBy = ",";
+        String cvsSplitBy = separator;
+        if (cvsSplitBy.isEmpty()) {
+            cvsSplitBy = ",";
+        }
 
         try {
             br = new BufferedReader(new FileReader(filePath));
@@ -46,7 +49,7 @@ public class SelectedFileReader {
         return list;
     }
 
-    public static ArrayList<MailAccountMap> read(File file, String separator) {
+    public static ArrayList<MailAccountMap> read(File file, String separator, boolean headerRow) {
         System.out.println("Chosen file: " + file.getName() + " with separator: " + separator);
 
         ArrayList<MailAccountMap> list = new ArrayList<>();
@@ -54,11 +57,16 @@ public class SelectedFileReader {
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = separator;
-
+        if (cvsSplitBy.isEmpty()) {
+            cvsSplitBy = ",";
+        }
+        
         try {
             br = new BufferedReader(new FileReader(file));
+            if (headerRow)
+                br.readLine(); // this will read the first line
+            
             while ((line = br.readLine()) != null) {
-
                 // use comma as separator
                 String[] lineArray = line.split(cvsSplitBy);
 
