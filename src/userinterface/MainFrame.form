@@ -36,7 +36,6 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -52,18 +51,21 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="mProgressBar" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="mLabelSeparator" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="mLabelSeparator" pref="87" max="32767" attributes="0"/>
                               <Component id="mLabelFile" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="mButtonChooseFile" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="mTextFieldFilePath" pref="166" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="mButtonChooseFile" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="mTextFieldFilePath" min="-2" pref="194" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="mComboBoxSeparator" min="-2" pref="327" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="mComboBoxSeparator" max="32767" attributes="0"/>
+                              <Component id="jCheckBoxHeaderRow" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="mButtonStart" min="-2" max="-2" attributes="0"/>
@@ -90,6 +92,9 @@
                               <Component id="mTextFieldFilePath" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="mLabelFile" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxHeaderRow" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="mButtonStart" max="32767" attributes="0"/>
                   </Group>
@@ -149,6 +154,15 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxHeaderRow">
+          <Properties>
+            <Property name="selected" type="boolean" value="true"/>
+            <Property name="text" type="java.lang.String" value="Header Row"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxHeaderRowActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
